@@ -1,0 +1,18 @@
+'''
+Three Good Model 
+Constants
+Division of labor
+Vipin P. Veetil
+6/16/2014
+Windows 
+Python
+'''
+
+numPlayers=100
+periods=3000
+
+eliminateNodes=20
+
+shockPeriod=2500
+
+typesGoods=[0,1,2]
