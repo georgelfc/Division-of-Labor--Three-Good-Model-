@@ -1,0 +1,77 @@
+'''
+Three Good Model
+Players
+Division of labor
+Vipin P. Veetil
+6/16/2014
+Windows 
+Python
+'''
+
+import constants as c
+import random
+import operator
+import copy
+
+class Player(object):
+    def __init__(self, id="noID"):
+        # three types of players
+        
+        self.myType=random.randint(0,2)        
+    
+        self.goodBasic=1.0
+        
+        self.store=[0.0,0.0,0.0]
+        
+        self.specialize_partial=False
+        
+        self.specialize_complete=False
+        
+        self.utilityHistory=[]
+
+        
+class simplePlayer(Player):
+    def __init__(self):
+        Player.__init__(self)
+    
+    def produce(self,listOf_partners): 
+        
+        if sum(listOf_partners)==3:
+            self.store[self.myType]=10*self.goodBasic
+            
+            self.specialize_partial=False            
+            self.specialize_complete=True            
+        
+        elif sum(listOf_partners)==1:
+            self.store[self.myType]=10*(self.goodBasic/3.0)
+            listTemp=copy.copy(c.typesGoods)
+       
+            listTemp.remove(self.myType)
+            self.store[listTemp[0]]=self.goodBasic/3.0
+            self.store[listTemp[1]]=self.goodBasic/3.0
+      
+            self.specialize_partial=False            
+            self.specialize_complete=False            
+            
+        elif sum(listOf_partners)==2:
+            self.store[self.myType]=10*(2*self.goodBasic/3.0)
+            
+            for i in listOf_partners:
+                if listOf_partners.index(i)!=self.myType and i==False:
+                    self.store[listOf_partners.index(i)]=self.goodBasic/3.0
+                
+            self.specialize_partial=True            
+            self.specialize_complete=False            
+                
+            
+            
+            
+    def consume(self):
+        utility=reduce(operator.mul, self.store, 1)
+             
+        self.utilityHistory.append(utility)
+        
+        self.store=[0.0,0.0,0.0]
+                    
+                
+        
